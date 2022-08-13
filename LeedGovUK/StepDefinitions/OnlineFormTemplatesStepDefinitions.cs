@@ -12,10 +12,15 @@ namespace LeedGovUK.StepDefinitions
     {
         private OnlineFormTemplatesPage onlineFormTemplatesPage;
 
+        public OnlineFormTemplatesStepDefinitions(OnlineFormTemplatesPage onlineFormTemplatesPage)
+        {
+            this.onlineFormTemplatesPage = onlineFormTemplatesPage;
+        }
+
         [Given(@"I am a user of an online form")]
         public void GivenIAmAUserOfAnOnlineForm()
         {
-            this.onlineFormTemplatesPage = new OnlineFormTemplatesPage(Hooks.Driver);
+            
         }
 
         [When(@"I navigate to the URL '([^']*)'")]
@@ -36,7 +41,6 @@ namespace LeedGovUK.StepDefinitions
         [Given(@"I have navigated to the online form")]
         public void GivenIHaveNavigatedToTheOnlineForm()
         {
-            this.onlineFormTemplatesPage = new OnlineFormTemplatesPage(Hooks.Driver);
             this.onlineFormTemplatesPage.navigateTo(Constants.TheOnlineFormUrl);
         }
 

@@ -3,38 +3,37 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
 using LeedGovUK.Support;
+using BoDi;
 
 namespace LeedGovUK.StepDefinitions
 {
     [Binding]
-    public class Hooks
+    public class WebDriverSupport
     {
-
-        public static WebDriver? Driver;
-
         [BeforeFeature]
-        public static void SetUp()
+        public static void SetUp(IObjectContainer objectContainer)
         {
             ChromeOptions chromeOptions = new ChromeOptions();
-            /*chromeOptions.AddArgument("--headless");
+            /*
+             chromeOptions.AddArgument("--headless");
             chromeOptions.AddArgument("--disable-gpu");
             chromeOptions.AddArgument("--disable-infobars");
             chromeOptions.AddArgument("--disable-extensions");
             chromeOptions.AddArgument("--window-size=1200,900");
-            chromeOptions.AddArgument("--disable-browser-side-navigation");*/
+            chromeOptions.AddArgument("--disable-browser-side-navigation");
+            */
 
-            ChromeDriver driver = new ChromeDriver(Constants.ChromePath, chromeOptions);
-
-            Hooks.Driver = driver;
+            ChromeDriver webDriver = new ChromeDriver(Constants.ChromePath, chromeOptions);
+            objectContainer.RegisterInstanceAs<IWebDriver>(webDriver);
         }
 
         [AfterFeature]
-        public static void TearDown()
+        public static void TearDown(IObjectContainer objectContainer)
         {
-            if (Hooks.Driver != null)
+            var driver = objectContainer.Resolve<IWebDriver>();
+            if (driver != null)
             {
-                Hooks.Driver.Quit();
-                Hooks.Driver = null;
+                driver.Quit();
             }
         }
     }
