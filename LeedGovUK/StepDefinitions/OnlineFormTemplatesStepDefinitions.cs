@@ -66,5 +66,88 @@ namespace LeedGovUK.StepDefinitions
             var firstQuestion = this.onlineFormTemplatesPage.GetFirstQuestion();
             firstQuestion.Should().Be("Are you able to pin an exact location on a map where the issue is?");
         }
+
+        [Given(@"I am on the first question page of the form")]
+        public void GivenIAmOnTheFirstQuestionPageOfTheForm()
+        {
+           
+        }
+
+        [When(@"I select nothing")]
+        public void WhenISelectNothing()
+        {
+            //Nothing here todo.
+        }
+
+        [When(@"click ‘Continue’")]
+        public void WhenClickContinue()
+        {
+            this.onlineFormTemplatesPage.clickOnContinue();
+        }
+
+        [Then(@"I can see an error message")]
+        public void ThenICanSeeAnErrorMessage()
+        {
+            var errorMessage = this.onlineFormTemplatesPage.getErrorMessage();
+            errorMessage.Should().Be("Select an option");
+        }
+
+
+        [Given(@"I am on the first question page")]
+        public void GivenIAmOnTheFirstQuestionPage()
+        {
+            
+        }
+
+        [When(@"I select ‘No’")]
+        public void WhenISelectNo()
+        {
+            this.onlineFormTemplatesPage.getSelectNoRadioButton();
+        }
+
+        [When(@"click the ‘Continue’ button")]
+        public void WhenClickTheContinueButton()
+        {
+            this.onlineFormTemplatesPage.clickOnContinue();
+        }
+
+        [Then(@"I can see the ‘Map’ page")]
+        public void ThenICanSeeTheMapPage()
+        {
+            this.onlineFormTemplatesPage.getMapPageHeading();
+        }
+
+
+        [Given(@"I am on the Map page")]
+        public void GivenIAmOnTheMapPage()
+        {
+            this.onlineFormTemplatesPage.getMapPageHeading();
+        }
+
+        [When(@"I enter the postcode '([^']*)' in the box")]
+        public void WhenIEnterThePostcodeInTheBox(string postcode)
+        {
+            this.onlineFormTemplatesPage.doInputPostalCode(postcode);
+        }
+
+        [When(@"click ‘Find address’")]
+        public void WhenClickFindAddress()
+        {
+            this.onlineFormTemplatesPage.doFindAddressButton();
+        }
+
+        [Then(@"I can select the address '([^']*)'")]
+        public void ThenICanSelectTheAddress(string address)
+        {
+            this.onlineFormTemplatesPage.doSelectDropBox(address);
+        }
+
+        [Then(@"I can click Continue")]
+        public void ThenICanClickContinue()
+        {
+            
+        }
+
+
     }
 }

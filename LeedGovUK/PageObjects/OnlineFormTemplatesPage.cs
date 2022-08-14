@@ -25,6 +25,39 @@ namespace LeedGovUK.PageObjects
         [CacheLookup]
         private IWebElement firstQuestion;
 
+        [FindsBy(How = How.Id, Using = "continue-Button")]
+        [CacheLookup]
+        private IWebElement continueButton;
+
+        [FindsBy(How = How.Id, Using = "CanPlacePin-error")]
+        [CacheLookup]
+        private IWebElement errorMessage;
+
+        [FindsBy(How = How.Id, Using = "radio-No")]
+        [CacheLookup]
+        private IWebElement selectNoRadioButton;
+
+        [FindsBy(How = How.ClassName, Using = "heading-large")]
+        [CacheLookup]
+        private IWebElement mapPageHeading;
+
+        [FindsBy(How = How.Id, Using = "Search")]
+        [CacheLookup]
+        private IWebElement inputPostalCode;
+
+        [FindsBy(How = How.Id, Using = "search-button")]
+        [CacheLookup]
+        private IWebElement findAddressButton;
+
+        [FindsBy(How = How.Id, Using = "addresses")]
+        [CacheLookup]
+        private IWebElement selectDropBox;
+
+
+        [FindsBy(How = How.Id, Using = "continue-Button")]
+        [CacheLookup]
+        private IWebElement afterAddressAndContinueButton;
+
         // Go to the designated page
         public void navigateTo(string url)
         {
@@ -46,6 +79,56 @@ namespace LeedGovUK.PageObjects
         public string GetFirstQuestion()
         {
             return this.firstQuestion.Text;
+        }
+
+        public void clickOnContinue()
+        {
+            WaitUntilElementVisible(this.continueButton);
+            this.continueButton.Click();
+        }
+
+        public string getErrorMessage()
+        {
+            return this.errorMessage.Text;
+        }
+
+        public void getSelectNoRadioButton()
+        {
+            WaitUntilElementVisible(this.selectNoRadioButton);
+            this.selectNoRadioButton.Click();
+        }
+
+        public string getMapPageHeading()
+        {
+            return this.mapPageHeading.Text;
+        }
+
+
+        public void doInputPostalCode(string postcode)
+        {
+            inputPostalCode.SendKeys(postcode);
+        }
+
+        public void doSelectDropBox(string address)
+        {
+            WaitUntilElementVisible(this.selectDropBox);
+            var selectAddress = new SelectElement(this.selectDropBox);
+            var option = selectAddress.Options.FirstOrDefault(o => o.Text.StartsWith(address));
+
+            if (option != null)
+                option.Click();
+        }
+
+        public void doFindAddressButton()
+        {
+            WaitUntilElementVisible(this.findAddressButton);
+            this.findAddressButton.Click();
+        }
+
+        public void doAfterAddressAndContinueButton()
+        {
+            WaitUntilElementVisible(this.afterAddressAndContinueButton);
+            this.afterAddressAndContinueButton.Click();
         }
     }
 }
